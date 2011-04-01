@@ -19,7 +19,7 @@ Installing
 The simplest way to install this would be to go to your puppetmaster, and run
 this::
 
-   $ wget -O /usr/bin/puppetlast https://github.com/gregarmer/puppetlast/raw/master/puppetlast
+   $ wget --no-check-certificate -O /usr/bin/puppetlast https://github.com/gregarmer/puppetlast/raw/master/puppetlast
    $ chmod 755 /usr/bin/puppetlast
 
 
