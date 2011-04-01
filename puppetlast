@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+import glob
+import os
+
+from datetime import datetime, timedelta
+
+
+def humanize(delta):
+    days = delta.days
+    hours = delta.seconds / 3600
+    minutes = delta.seconds % 3600 / 60
+    seconds = delta.seconds % 3600 % 60
+    
+    str = ""
+    tStr = ""
+    if days > 0:
+        if days == 1: tStr = "day"
+        else: tStr = "days"
+        str = str + "%s %s" %(days, tStr)
+    elif hours > 0:
+        if hours == 1: tStr = "hour"
+        else: tStr = "hours"
+        str = str + "%s %s" %(hours, tStr)
+    elif minutes > 0:
+        if minutes == 1: tStr = "min"
+        else: tStr = "mins"           
+        str = str + "%s %s" %(minutes, tStr)
+    elif seconds > 0:
+        if seconds == 1: tStr = "sec"
+        else: tStr = "secs"
+        str = str + "%s %s" %(seconds, tStr)
+    return str
+
+
+times = []
+for f in glob.glob("/var/lib/puppet/yaml/facts/*"):
+    host = f.split('/')[-1].replace('.yaml', '')
+    last = datetime.now() - datetime.fromtimestamp(os.stat(f)[9])
+    times.append((humanize(last), host, last))
+
+RED = '\033[91m'
+GREEN = '\033[92m'
+RESET = '\033[0m'
+
+for time in sorted(times, key=lambda x: x[2]):
+    if time[2] < timedelta(hours=0.5):
+        print GREEN, "%10s ago: %s" % (time[0], time[1]), RESET
+    else:
+        print RED, "%10s ago: %s" % (time[0], time[1]), RESET
