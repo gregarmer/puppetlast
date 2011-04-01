@@ -12,14 +12,6 @@ connected in the past 30 minutes.
 
 Warning: This code needs a lot of work, but it is in working condition.
 
-Output
-------
-
-The output looks something like this:
-
-.. image:: https://github.com/gregarmer/puppetlast/raw/master/misc/screenshot.png
-   :align: left
-
 
 Installing
 ----------
@@ -29,4 +21,13 @@ this::
 
    $ wget -O /usr/bin/puppetlast https://github.com/gregarmer/puppetlast/raw/master/puppetlast
    $ chmod 755 /usr/bin/puppetlast
+
+
+Output
+------
+
+The output looks something like this:
+
+.. image:: https://github.com/gregarmer/puppetlast/raw/master/misc/screenshot.png
+   :align: left
 
